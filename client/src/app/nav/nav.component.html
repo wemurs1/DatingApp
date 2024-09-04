@@ -31,6 +31,13 @@
 
     @if (accountService.currentUser()) {
     <div dropdown class="dropdown">
+      <img
+        class="me-2"
+        src="{{
+          accountService.currentUser()?.photoUrl || './assets/user.png'
+        }}"
+        alt="User main image"
+      />
       <a dropdownToggle class="dropdown-toggle text-light text-decoration-none">
         Welcome {{ accountService.currentUser()?.username | titlecase }}
       </a>
@@ -40,9 +47,7 @@
         <a class="dropdown-item" (click)="logout()">Logout</a>
       </div>
     </div>
-    } 
-    
-    @if (!accountService.currentUser()) {
+    } @if (!accountService.currentUser()) {
     <form #loginForm="ngForm" (ngSubmit)="login()" class="d-flex">
       <input
         name="username"

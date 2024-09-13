@@ -44,7 +44,10 @@
   <tbody class="align-middle">
     @for (message of messageService.paginatedResult()?.items; track message.id)
     {
-    <tr routerLink="{{ getRoute(message) }}">
+    <tr
+      routerLink="{{ getRoute(message) }}"
+      [queryParams]="{ tab: 'Messages' }"
+    >
       <td>{{ message.content }}</td>
       <td>
         <div>
@@ -70,9 +73,7 @@
     }
   </tbody>
 </table>
-} 
-
-@if (messageService.paginatedResult()?.pagination) {
+} @if (messageService.paginatedResult()?.pagination) {
 <div class="d-flex justify-content-center">
   <pagination
     [boundaryLinks]="true"

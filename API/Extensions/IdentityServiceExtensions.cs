@@ -1,5 +1,8 @@
 using System.Text;
+using API.Data;
+using API.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
 namespace API.Extensions;
@@ -8,9 +11,14 @@ public static class IdentityServiceExtensions
 {
     public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
     {
+        services.AddIdentityCore<AppUser>(opt => { })
+            .AddRoles<AppRole>()
+            .AddRoleManager<RoleManager<AppRole>>()
+            .AddEntityFrameworkStores<DataContext>();
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opts =>
     {
-        var tokenKey = config["TokenKey"] ?? throw new Exception("ToeknKey not founds");
+        var tokenKey = config["TokenKey"] ?? throw new Exception("TokenKey not found");
         opts.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,

@@ -17,6 +17,8 @@ public class TokenService(IConfiguration config) : ITokenService
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
+        if (user.UserName == null) throw new Exception("Not username for user");
+
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),

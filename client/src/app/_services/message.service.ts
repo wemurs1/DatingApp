@@ -28,4 +28,10 @@ export class MessageService {
           setPaginatedResponse(response, this.paginatedResult),
       });
   }
+
+  getMessageThread(username: string) {
+    return this.http.get<Message[]>(
+      this.baseUrl + 'messages/thread/' + username
+    );
+  }
 }

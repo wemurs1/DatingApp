@@ -7,3 +7,7 @@ services:
       MSSQL_SA_PASSWORD: "Password@1"
     ports:
       - "1433:1433"
+    volumes:
+      - sqlvolume:/var/opt/mssql
+volumes:
+  sqlvolume:
